@@ -31,9 +31,48 @@ function returnPosts(dbJSON) {
 }
 
 function showTickets(dbJSON) {
+
         $.each(dbJSON, function(key, value){
+            var subdiv = document.createElement('div');
+            $(subdiv).attr("class","ticket");
+            $('#tickets').append(subdiv);
         $.each(value, function(key, value){
-                    document.getElementById("heading").innerHTML = document.getElementById("heading").innerHTML + key + value;
+                switch (key) {
+                    case 'ticket_id' :
+                        var ticket_id = document.createElement('p');
+                        $(ticket_id).attr("class", "ticket_id");
+                        $(ticket_id).text("Numer zgłoszenia: "+value);
+                        $('#tickets').children().last().append(ticket_id);
+                        break;
+                    case 'ticket_title' :
+                        var title = document.createElement('h2');
+                        $(title).attr("class", "ticket_title");
+                        $(title).text(value);
+                        $('#tickets').children().last().append(title);
+                        break;
+                    case 'ticket_category' :
+                        var category = document.createElement('p');
+                        $(category).attr("class", "ticket_category");
+                        $(category).text("Kategoria: "+value);
+                        $('#tickets').children().last().append(category);
+                        break;
+                    case 'ticket_descrption' :
+                        var description = document.createElement('p');
+                        $(description).attr("class", "ticket_description");
+                        $(description).text("Kategoria: "+value);
+                        $('#tickets').children().last().append(description);
+                        break;
+                    case 'dataZgloszenia' :
+                        var date = document.createElement('p');
+                        $(date).attr("class", "ticket_description");
+                        $(date).text("Data zgłoszenia: "+value);
+                        $('#tickets').children().last().append(date);
+                        break;
+                    
+                }
+                
+                /*$('#tickets').append(key+ " "+value +"<br>");
+                $('#tickets').children().last().text(value);*/
             });
     });
 };
