@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+/*Funkcja wyświetlająca login albo menu w zależności od tego, czy ktos jest zalogowany - obecnie zmockowana*/
 function menuCheck(x) {
     var navigate = document.getElementById("navigate");
     if (x === 1) {
@@ -14,8 +15,25 @@ function menuCheck(x) {
     }
 }
 
-function getPosts() {
-
+/*Funkcja, która odpytuje PHP o dane z bazy - należy dodać parametry zapytań i stworzyć osobną funkcję, która wyświetli wyniki*/
+function getPosts(callback) {
+    $.ajax({
+    type: 'POST',  
+    url: '../scripts/database.php',
+    data: { album: "dobry_album" },
+    success: function(response) {
+            if (callback) callback(response);
+    }});
 }
 
+function returnPosts(dbJSON) {
+    posts = dbJSON;
+}
 
+function showTickets(dbJSON) {
+        $.each(dbJSON, function(key, value){
+        $.each(value, function(key, value){
+                    document.getElementById("heading").innerHTML = document.getElementById("heading").innerHTML + key + value;
+            });
+    });
+};
